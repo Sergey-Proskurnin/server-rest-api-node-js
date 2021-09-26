@@ -24,8 +24,8 @@ const updateToken = async (id, token) => {
 const updateTokenVerify = async (id, verify, verifyToken) => {
   return await User.updateOne({ _id: id }, { verify, verifyToken });
 };
-const updateAvatar = async (id, avatar) => {
-  const result = await User.updateOne({ _id: id }, { avatarURL: avatar });
+const updateAvatar = async (id, avatar, idCloudAvatar = null) => {
+  const result = await User.updateOne({ _id: id }, { avatarURL: avatar, idCloudAvatar });
   return result;
 };
 

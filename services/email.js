@@ -10,7 +10,7 @@ class EmailService {
         this.link = process.env.LINK_HOST_DEVELOPMENT;
         break;
       case 'production':
-        this.link = 'link from production';
+        this.link = 'https://server-contacts-rest-api.herokuapp.com/';
         break;
       default:
         this.link = process.env.LINK_HOST_DEFAULT;
