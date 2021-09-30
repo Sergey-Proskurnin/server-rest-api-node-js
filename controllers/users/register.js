@@ -16,22 +16,21 @@ const register = async (req, res, next) => {
         message: 'Email in use',
       });
     }
-    const { email, subscription, avatarURL, verifyToken } = await Users.create(
-      req.body,
-    );
+    const { name, email, subscription, avatarURL, verifyToken } =
+      await Users.create(req.body);
     try {
       const emailService = new EmailService(
         process.env.NODE_ENV,
         new CreateSenderSendGrid(),
       );
-      await emailService.sendVerifyEmail(verifyToken, email);
+      await emailService.sendVerifyEmail(verifyToken, email, name);
     } catch (error) {
       console.log(error.message);
     }
     return res.status(CREATED).json({
       status: 'success',
       code: CREATED,
-      user: { email, subscription, avatarURL, verifyToken },
+      user: { name, email, subscription, avatarURL, verifyToken },
     });
   } catch (error) {
     next(error);

@@ -8,6 +8,12 @@ const SALT_WORK_FACTOR = 10;
 
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+      min: 3,
+      max: 30,
+    },
     password: {
       type: String,
       required: [true, 'Password is required'],

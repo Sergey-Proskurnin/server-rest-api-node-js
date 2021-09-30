@@ -8,7 +8,7 @@ const contactSchema = new Schema(
       max: 30,
     },
     email: String,
-    phone: {
+    number: {
       type: String,
       min: 3,
       max: 30,

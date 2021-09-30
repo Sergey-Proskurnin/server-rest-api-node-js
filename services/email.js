@@ -23,7 +23,7 @@ class EmailService {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  #createTemplateVerificationEmail(verifyToken, emailUser) {
+  #createTemplateVerificationEmail(verifyToken, emailName) {
     const mailGenerator = new Mailgen({
       theme: 'neopolitan',
       product: {
@@ -34,7 +34,7 @@ class EmailService {
 
     const email = {
       body: {
-        name: this.capitalize(emailUser),
+        name: this.capitalize(emailName),
         intro: "Welcome PSG System! We're very excited to have you on board.",
         action: {
           instructions: 'To get started with PSG System, please click here:',
@@ -51,8 +51,8 @@ class EmailService {
     return mailGenerator.generate(email);
   }
 
-  async sendVerifyEmail(verifyToken, email) {
-    const emailHtml = this.#createTemplateVerificationEmail(verifyToken, email);
+  async sendVerifyEmail(verifyToken, email, name) {
+    const emailHtml = this.#createTemplateVerificationEmail(verifyToken, name);
     const msg = {
       to: email,
       subject: 'Verify your account',

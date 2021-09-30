@@ -4,11 +4,11 @@ const {
 
 const current = async (req, res, next) => {
   try {
-    const { email, subscription, avatarURL } = req.user;
+    const { name, email, subscription, avatarURL } = req.user;
     return res.status(OK).json({
       status: 'success',
       code: OK,
-      user: { email, subscription, avatarURL },
+      user: { name, email, subscription, avatarURL },
     });
   } catch (error) {
     next(error);

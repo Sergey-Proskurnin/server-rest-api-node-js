@@ -10,7 +10,7 @@ const schemaCreateContact = Joi.object({
     .pattern(/^[a-zA-Z' '\-()0-9]{3,30}$/)
     .required(),
   email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
-  phone: Joi.string()
+  number: Joi.string()
     .pattern(/^[' '\-()0-9]{3,30}$/)
     .required(),
   favorite: Joi.boolean().optional(),
@@ -21,17 +21,17 @@ const schemaUpdateContact = Joi.object({
     .pattern(/^[a-zA-Z' '\-()0-9]{3,30}$/)
     .optional(),
   email: Joi.string().email({ minDomainSegments: 2, tlds: false }).optional(),
-  phone: Joi.string()
+  number: Joi.string()
     .pattern(/^[' '\-()0-9]{3,30}$/)
     .optional(),
-}).or('name', 'email', 'phone');
+}).or('name', 'email', 'number');
 
 const schemaUpdateStatusContact = Joi.object({
   favorite: Joi.boolean().required(),
 });
 module.exports = {
   validationCreateContact: (req, res, next) => {
-    if ('name' in req.body && 'email' in req.body && 'phone' in req.body) {
+    if ('name' in req.body && 'email' in req.body && 'number' in req.body) {
       return validate(schemaCreateContact, req.body, next);
     }
     return res.status(BAD_REQUEST).json({

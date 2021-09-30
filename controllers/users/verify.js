@@ -8,11 +8,11 @@ const verify = async (req, res, next) => {
     const user = await Users.findByVerifyToken(req.params.verificationToken);
     if (user) {
       await Users.updateTokenVerify(user.id, true, null);
-      return res.status(OK).json({
-        status: 'success',
-        code: OK,
-        data: { message: 'Verification successful' },
-      });
+      return res
+        .status(OK)
+        .send(
+          '<h1>Congratulations, your email has been successfully verified, go to the <a href="https://psg-app-phonebook.netlify.app/login">login</a> page in the phone book and enter your <a href="https://psg-app-phonebook.netlify.app">email</a> and password.</h1>',
+        );
     }
     return res
       .status(NOT_FOUND)

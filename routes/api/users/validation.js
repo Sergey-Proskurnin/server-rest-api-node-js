@@ -6,7 +6,18 @@ const {
   Packages,
 } = require('../../../helpers');
 
-const schemaPаramsrUser = Joi.object({
+const schemaPаramsrUserSignup = Joi.object({
+  name: Joi.string()
+    .pattern(/^[a-zA-Z' '\-()0-9]{3,30}$/)
+    .required(),
+  password: Joi.string()
+    .pattern(/[0-9a-zA-Z!@#$%^&*]{6,}/)
+    .required(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
+  subscription: Joi.string().optional(),
+});
+
+const schemaPаramsrUserLogin = Joi.object({
   password: Joi.string()
     .pattern(/[0-9a-zA-Z!@#$%^&*]{6,}/)
     .required(),
@@ -23,9 +34,19 @@ const shemaVerifyEmail = Joi.object({
 });
 
 module.exports = {
-  validationPаramsUser: (req, res, next) => {
+  validationPаramsUserSignup: (req, res, next) => {
     if ('password' in req.body && 'email' in req.body) {
-      return validate(schemaPаramsrUser, req.body, next);
+      return validate(schemaPаramsrUserSignup, req.body, next);
+    }
+    return res.status(BAD_REQUEST).json({
+      status: 'error',
+      code: BAD_REQUEST,
+      message: 'Missing required name field',
+    });
+  },
+  validationPаramsUserLogin: (req, res, next) => {
+    if ('password' in req.body && 'email' in req.body) {
+      return validate(schemaPаramsrUserLogin, req.body, next);
     }
     return res.status(BAD_REQUEST).json({
       status: 'error',
