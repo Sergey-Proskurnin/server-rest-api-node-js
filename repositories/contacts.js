@@ -53,6 +53,16 @@ const addContact = async (userId, body) => {
   return result;
 };
 
+const addAvatarContact = async (userId, body, idCloudAvatar, avatarUrl) => {
+  const result = await Contact.create({
+    ...body,
+    owner: userId,
+    idCloudAvatarContact: idCloudAvatar,
+    avatarContactURL: avatarUrl,
+  });
+  return result;
+};
+
 const updateContact = async (userId, contactId, body) => {
   const result = await Contact.findOneAndUpdate(
     { _id: contactId, owner: userId },
@@ -78,4 +88,5 @@ module.exports = {
   addContact,
   updateContact,
   updateStatusContact,
+  addAvatarContact,
 };

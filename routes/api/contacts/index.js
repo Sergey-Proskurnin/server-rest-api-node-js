@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { upload } = require('../../../helpers');
 
 const guard = require('../../../helpers/guard');
 
@@ -16,6 +17,14 @@ router.get('/', guard, ctrl.getAllContacts);
 router.get('/:contactId', guard, validateMongoId, ctrl.getByIdContact);
 
 router.post('/', guard, validationCreateContact, ctrl.addContact);
+
+router.post(
+  '/avatar',
+  guard,
+  upload.single('avatar'),
+  validationCreateContact,
+  ctrl.addAvatarsContacts,
+);
 
 router.delete('/:contactId', guard, validateMongoId, ctrl.removeContact);
 

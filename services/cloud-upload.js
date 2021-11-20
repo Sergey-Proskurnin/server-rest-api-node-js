@@ -22,6 +22,8 @@ class UploadService {
         250,
         Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE,
       )
+      .circle({ radius: 120 })
+      .background(0xffffffff)
       .writeAsync(pathFile);
   }
 
@@ -31,6 +33,21 @@ class UploadService {
       await uploadCloud(pathFile, {
         public_id: oldIdCloudAvatar?.replace('CloudAvatars/', ''),
         folder: 'CloudAvatars',
+        /** Transform avatars into cloudinary */
+        // transformation: {width: 250, height: 250, crop: "fill"},
+      });
+    return { idCloudAvatar, avatarUrl };
+  }
+
+  async saveAvatarContact(pathFileContact, oldIdCloudAvatarContact) {
+    await this.transformAvatars(pathFileContact);
+    const { public_id: idCloudAvatar, secure_url: avatarUrl } =
+      await uploadCloud(pathFileContact, {
+        public_id: oldIdCloudAvatarContact?.replace(
+          'CloudAvatarsContacts/',
+          '',
+        ),
+        folder: 'CloudAvatarsContacts',
         /** Transform avatars into cloudinary */
         // transformation: {width: 250, height: 250, crop: "fill"},
       });

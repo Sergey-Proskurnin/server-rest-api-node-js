@@ -17,8 +17,14 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    idCloudAvatarContact: { type: String, default: null },
     owner: { type: SchemaTypes.ObjectId, ref: 'user' },
+    avatarContactURL: {
+      type: String,
+      default: null,
+    },
   },
+
   {
     versionKey: false,
     timestamps: true,
