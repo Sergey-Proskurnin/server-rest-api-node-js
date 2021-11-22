@@ -2,7 +2,7 @@ const Contact = require('../model/contact');
 
 const listContacts = async (userId, query) => {
   const {
-    limit = 5,
+    limit = 100,
     page = 1,
     sortBy,
     sortByDesc,

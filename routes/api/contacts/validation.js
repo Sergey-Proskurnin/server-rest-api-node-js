@@ -14,6 +14,7 @@ const schemaCreateContact = Joi.object({
     .pattern(/^[' '\-()0-9]{3,30}$/)
     .required(),
   favorite: Joi.boolean().optional(),
+  avatar: Joi.string().optional(),
 });
 
 const schemaUpdateContact = Joi.object({
