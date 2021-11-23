@@ -48,7 +48,6 @@ const removeContact = async (userId, contactId) => {
     owner: userId,
   });
   const result = await uploads.deleteAvatar(idCloudAvatarContact);
-  console.log(result);
   if (result === 'ok') {
     const result = await Contact.findOneAndRemove({
       _id: contactId,
