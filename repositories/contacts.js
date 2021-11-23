@@ -1,4 +1,5 @@
 const Contact = require('../model/contact');
+const { UploadService } = require('../services');
 
 const listContacts = async (userId, query) => {
   const {
@@ -41,11 +42,21 @@ const getContactById = async (userId, contactId) => {
 };
 
 const removeContact = async (userId, contactId) => {
-  const result = await Contact.findOneAndRemove({
+  const uploads = new UploadService();
+  const { idCloudAvatarContact } = await Contact.findOne({
     _id: contactId,
     owner: userId,
   });
-  return result;
+  const result = await uploads.deleteAvatar(idCloudAvatarContact);
+  console.log(result);
+  if (result === 'ok') {
+    const result = await Contact.findOneAndRemove({
+      _id: contactId,
+      owner: userId,
+    });
+    return result;
+  }
+  throw new Error(`Server ${result}`);
 };
 
 const addContact = async (userId, body) => {

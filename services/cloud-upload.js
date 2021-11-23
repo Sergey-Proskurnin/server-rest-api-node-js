@@ -10,6 +10,7 @@ cloudinary.config({
   secure: true,
 });
 const uploadCloud = promisify(cloudinary.uploader.upload);
+const deleteCloud = promisify(cloudinary.uploader.destroy);
 
 class UploadService {
   /** Transform avatars into jimp */
@@ -52,6 +53,11 @@ class UploadService {
         // transformation: {width: 250, height: 250, crop: "fill"},
       });
     return { idCloudAvatar, avatarUrl };
+  }
+
+  async deleteAvatar(idCloudAvatarContact) {
+    const { result } = await deleteCloud(idCloudAvatarContact);
+    return result;
   }
 }
 module.exports = UploadService;
