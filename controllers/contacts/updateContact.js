@@ -1,4 +1,5 @@
 const Contacts = require('../../repositories/contacts');
+
 const {
   HttpCode: { OK, NOT_FOUND },
 } = require('../../helpers');
@@ -6,10 +7,23 @@ const {
 const updateContact = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const contact = await Contacts.updateContact(
+    if (req.file === undefined) {
+      const contact = await Contacts.updateContact(
+        userId,
+        req.params.contactId,
+        req.body,
+      );
+      res.status(OK).json({
+        status: 'success',
+        code: OK,
+        data: { contact },
+      });
+    }
+    const contact = await Contacts.updateAvatarContact(
       userId,
       req.params.contactId,
       req.body,
+      req.file.path,
     );
     if (contact) {
       return res

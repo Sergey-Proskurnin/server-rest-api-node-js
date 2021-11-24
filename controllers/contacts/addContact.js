@@ -1,18 +1,47 @@
+require('dotenv').config();
+const fs = require('fs/promises');
 const Contacts = require('../../repositories/contacts');
-const {
-  HttpCode: { CREATED },
-} = require('../../helpers');
 
-const addContact = async (req, res, next) => {
+const {
+  HttpCode: { CREATED, OK },
+} = require('../../helpers');
+const { UploadService } = require('../../services');
+
+const addContacts = async (req, res, next) => {
   try {
-    const userId = req.user.id;
-    const contacts = await Contacts.addContact(userId, req.body);
-    return res
-      .status(CREATED)
-      .json({ status: 'success', code: CREATED, data: { contacts } });
+    const userId = req.user._id;
+    const uploads = new UploadService();
+    if (req.file === undefined) {
+      const contact = await Contacts.addContact(userId, req.body);
+      res.status(OK).json({
+        status: 'success',
+        code: CREATED,
+        data: { contact },
+      });
+    }
+    const { idCloudAvatar, avatarUrl } = await uploads.saveAvatarContact(
+      req.file.path,
+      null,
+    );
+    try {
+      await fs.unlink(req.file.path);
+    } catch (error) {
+      console.log(error.message);
+    }
+    const contact = await Contacts.addAvatarContact(
+      userId,
+      req.body,
+      idCloudAvatar,
+      avatarUrl,
+    );
+    res.status(OK).json({
+      status: 'success',
+      code: CREATED,
+      data: { contact },
+    });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = addContact;
+module.exports = addContacts;

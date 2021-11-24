@@ -1,5 +1,6 @@
 const Contact = require('../model/contact');
 const { UploadService } = require('../services');
+const fs = require('fs/promises');
 
 const listContacts = async (userId, query) => {
   const {
@@ -47,6 +48,13 @@ const removeContact = async (userId, contactId) => {
     _id: contactId,
     owner: userId,
   });
+  if (idCloudAvatarContact === null) {
+    const result = await Contact.findOneAndRemove({
+      _id: contactId,
+      owner: userId,
+    });
+    return result;
+  }
   const result = await uploads.deleteAvatar(idCloudAvatarContact);
   if (result === 'ok') {
     const result = await Contact.findOneAndRemove({
@@ -82,6 +90,33 @@ const updateContact = async (userId, contactId, body) => {
   return result;
 };
 
+const updateAvatarContact = async (userId, contactId, body, path) => {
+  const uploads = new UploadService();
+  const { idCloudAvatarContact } = await Contact.findOne({
+    _id: contactId,
+    owner: userId,
+  });
+  const { idCloudAvatar, avatarUrl } = await uploads.saveAvatarContact(
+    path,
+    idCloudAvatarContact,
+  );
+  try {
+    await fs.unlink(path);
+  } catch (error) {
+    console.log(error.message);
+  }
+  const result = await Contact.findOneAndUpdate(
+    { _id: contactId, owner: userId },
+    {
+      ...body,
+      idCloudAvatarContact: idCloudAvatar,
+      avatarContactURL: avatarUrl,
+    },
+    { upsert: true, returnDocument: 'after' },
+  );
+  return result;
+};
+
 const updateStatusContact = async (userId, contactId, body) => {
   const result = await Contact.findOneAndUpdate(
     { _id: contactId, owner: userId },
@@ -99,4 +134,5 @@ module.exports = {
   updateContact,
   updateStatusContact,
   addAvatarContact,
+  updateAvatarContact,
 };

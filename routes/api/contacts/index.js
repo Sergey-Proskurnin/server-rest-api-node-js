@@ -16,14 +16,12 @@ router.get('/', guard, ctrl.getAllContacts);
 
 router.get('/:contactId', guard, validateMongoId, ctrl.getByIdContact);
 
-router.post('/', guard, validationCreateContact, ctrl.addContact);
-
 router.post(
-  '/avatar',
+  '/',
   guard,
   upload.single('avatar'),
   validationCreateContact,
-  ctrl.addAvatarsContacts,
+  ctrl.addContact,
 );
 
 router.delete('/:contactId', guard, validateMongoId, ctrl.removeContact);
@@ -31,6 +29,7 @@ router.delete('/:contactId', guard, validateMongoId, ctrl.removeContact);
 router.put(
   '/:contactId',
   guard,
+  upload.single('avatar'),
   validateMongoId,
   validationUpdateContact,
   ctrl.updateContact,

@@ -25,7 +25,8 @@ const schemaUpdateContact = Joi.object({
   number: Joi.string()
     .pattern(/^[' '\-()0-9]{3,30}$/)
     .optional(),
-}).or('name', 'email', 'number');
+  avatar: Joi.string().optional(),
+}).or('name', 'email', 'number', 'avatar');
 
 const schemaUpdateStatusContact = Joi.object({
   favorite: Joi.boolean().required(),
