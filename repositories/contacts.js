@@ -2,6 +2,8 @@ const Contact = require('../model/contact');
 const { UploadService } = require('../services');
 const fs = require('fs/promises');
 
+const uploads = new UploadService();
+
 const listContacts = async (userId, query) => {
   const {
     limit = 100,
@@ -43,7 +45,6 @@ const getContactById = async (userId, contactId) => {
 };
 
 const removeContact = async (userId, contactId) => {
-  const uploads = new UploadService();
   const { idCloudAvatarContact } = await Contact.findOne({
     _id: contactId,
     owner: userId,
@@ -71,7 +72,17 @@ const addContact = async (userId, body) => {
   return result;
 };
 
-const addAvatarContact = async (userId, body, idCloudAvatar, avatarUrl) => {
+const addAvatarContact = async (userId, body, path) => {
+  const { idCloudAvatar, avatarUrl } = await uploads.saveAvatarContact(
+    path,
+    null,
+  );
+  try {
+    await fs.unlink(path);
+  } catch (error) {
+    console.log(error.message);
+  }
+
   const result = await Contact.create({
     ...body,
     owner: userId,
@@ -91,7 +102,6 @@ const updateContact = async (userId, contactId, body) => {
 };
 
 const updateAvatarContact = async (userId, contactId, body, path) => {
-  const uploads = new UploadService();
   const { idCloudAvatarContact } = await Contact.findOne({
     _id: contactId,
     owner: userId,

@@ -49,8 +49,6 @@ class UploadService {
           '',
         ),
         folder: 'CloudAvatarsContacts',
-        /** Transform avatars into cloudinary */
-        // transformation: {width: 250, height: 250, crop: "fill"},
       });
     return { idCloudAvatar, avatarUrl };
   }
