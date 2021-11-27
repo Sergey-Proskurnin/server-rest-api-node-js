@@ -33,6 +33,13 @@ const shemaVerifyEmail = Joi.object({
   email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
 });
 
+const schemaPаramsrUserInfo = Joi.object({
+  name: Joi.string()
+    .pattern(/^[A-Za-zА-Яа-яЁёЄєЇї' '\-()0-9]{3,30}$/)
+    .required(),
+  avatar: Joi.string().optional(),
+});
+
 module.exports = {
   validationPаramsUserSignup: (req, res, next) => {
     if ('password' in req.body && 'email' in req.body) {
@@ -72,6 +79,16 @@ module.exports = {
       status: 'error',
       code: BAD_REQUEST,
       message: 'Missing required field email',
+    });
+  },
+  validationPаramsUserInfo: (req, res, next) => {
+    if ('name' in req.body) {
+      return validate(schemaPаramsrUserInfo, req.body, next);
+    }
+    return res.status(BAD_REQUEST).json({
+      status: 'error',
+      code: BAD_REQUEST,
+      message: 'Missing required name field',
     });
   },
 };

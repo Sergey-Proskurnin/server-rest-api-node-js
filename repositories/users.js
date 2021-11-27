@@ -24,8 +24,21 @@ const updateToken = async (id, token) => {
 const updateTokenVerify = async (id, verify, verifyToken) => {
   return await User.updateOne({ _id: id }, { verify, verifyToken });
 };
-const updateAvatar = async (id, avatar, idCloudAvatar = null) => {
-  const result = await User.updateOne({ _id: id }, { avatarURL: avatar, idCloudAvatar });
+const updateUserInfo = async (id, avatar, idCloudAvatar = null, name) => {
+  const result = await User.findOneAndUpdate(
+    { _id: id },
+    { avatarURL: avatar, idCloudAvatar, name },
+    { returnDocument: 'after' },
+  );
+  return result;
+};
+
+const updateUserName = async (id, name) => {
+  const result = await User.findOneAndUpdate(
+    { _id: id },
+    { name },
+    { returnDocument: 'after' },
+  );
   return result;
 };
 
@@ -44,7 +57,8 @@ module.exports = {
   create,
   updateToken,
   updateSubscriptionUser,
-  updateAvatar,
+  updateUserInfo,
+  updateUserName,
   findByVerifyToken,
   updateTokenVerify,
 };

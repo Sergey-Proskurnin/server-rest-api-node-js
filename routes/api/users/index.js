@@ -7,12 +7,19 @@ const {
   validationPаramsUserLogin,
   validationSubscriptionUser,
   validationVerificationEmail,
+  validationPаramsUserInfo,
 } = require('./validation');
 
 const { users: ctrl } = require('../../../controllers');
 
 router.patch('/', guard, validationSubscriptionUser, ctrl.subscriptionUpdate);
-router.patch('/avatars', guard, upload.single('avatar'), ctrl.avatars);
+router.patch(
+  '/avatars',
+  guard,
+  upload.single('avatar'),
+  validationPаramsUserInfo,
+  ctrl.avatars,
+);
 router.post('/signup', validationPаramsUserSignup, ctrl.register);
 router.post('/login', validationPаramsUserLogin, ctrl.login);
 router.post('/logout', guard, ctrl.logout);
