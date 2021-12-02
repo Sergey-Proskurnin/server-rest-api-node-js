@@ -4,7 +4,7 @@ const {
   HttpCode: { UNAUTHORIZED },
 } = require('./constants');
 
-const guard = (req, res, next) => {
+const guardRefresh = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (error, dataUser) => {
     const headerAuth = req.get('Authorization');
     let token = null;
@@ -19,11 +19,11 @@ const guard = (req, res, next) => {
         message: error.message,
       });
     }
-    if (!dataUser.user || token !== dataUser.user?.token) {
+    if (!dataUser.user || token !== dataUser.user?.refreshToken) {
       return res.status(UNAUTHORIZED).json({
         status: 'error',
         code: UNAUTHORIZED,
-        message: 'Unvalid token',
+        message: 'Unvalid refresh token',
       });
     }
 
@@ -33,4 +33,4 @@ const guard = (req, res, next) => {
   })(req, res, next);
 };
 
-module.exports = guard;
+module.exports = guardRefresh;

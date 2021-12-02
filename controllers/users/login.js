@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const SECRET_KEY = process.env.SECRET_KEY;
 const Users = require('../../repositories/users');
+const Sessions = require('../../repositories/session');
 const {
   HttpCode: { OK, UNAUTHORIZED },
+  createRefreshToken,
+  createToken,
 } = require('../../helpers');
 
 const login = async (req, res, next) => {
@@ -25,15 +25,21 @@ const login = async (req, res, next) => {
         message: 'User has not verified his email',
       });
     }
-    const { name, email, subscription } = user;
+
     const id = user.id;
-    const payloload = { id, test: 'Hellow mamkin hacker' };
-    const token = jwt.sign(payloload, SECRET_KEY, { expiresIn: '4h' });
-    await Users.updateToken(id, token);
+    const newSession = await Sessions.create(id);
+    const token = createToken(id, newSession._id);
+    const refreshToken = createRefreshToken(id, newSession._id);
+    const updateUser = await Users.updateToken(id, token, refreshToken);
+    const newUser = {
+      name: updateUser.name,
+      email: updateUser.email,
+      avatarURL: updateUser.email,
+    };
     return res.status(OK).json({
       status: 'success',
       code: OK,
-      data: { token, user: { name, email, subscription } },
+      data: { token, refreshToken, sid: newSession._id, user: newUser },
     });
   } catch (error) {
     next(error);

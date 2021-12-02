@@ -17,8 +17,13 @@ const create = async body => {
   return await user.save();
 };
 
-const updateToken = async (id, token) => {
-  return await User.updateOne({ _id: id }, { token });
+const updateToken = async (id, token, refreshToken) => {
+  const result = await User.findOneAndUpdate(
+    { _id: id },
+    { token, refreshToken },
+    { returnDocument: 'after' },
+  );
+  return result;
 };
 
 const updateTokenVerify = async (id, verify, verifyToken) => {

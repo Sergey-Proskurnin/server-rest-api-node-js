@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+// const { guard, guardRefresh } = require('../../../helpers');
 const guard = require('../../../helpers/guard');
-const { upload } = require('../../../helpers');
+const { upload, guardRefresh } = require('../../../helpers');
 const {
   validationPаramsUserSignup,
   validationPаramsUserLogin,
@@ -26,5 +27,6 @@ router.post('/logout', guard, ctrl.logout);
 router.get('/current', guard, ctrl.current);
 router.get('/verify/:verificationToken', ctrl.verify);
 router.post('/verify', validationVerificationEmail, ctrl.repeatEmailVerify);
+router.get('/refresh', guardRefresh, ctrl.refresh);
 
 module.exports = router;
