@@ -4,12 +4,22 @@ const contactSchema = new Schema(
   {
     name: {
       type: String,
+      required: [true, 'Name is required'],
       min: 3,
       max: 30,
     },
-    email: String,
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+      validate(value) {
+        const re = /\S+@\S+\.\S+/g;
+        return re.test(String(value).toLowerCase());
+      },
+    },
     number: {
       type: String,
+      required: [true, 'Number is required'],
       min: 3,
       max: 30,
     },

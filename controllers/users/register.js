@@ -16,8 +16,9 @@ const register = async (req, res, next) => {
         message: 'Email in use',
       });
     }
-    const { name, email, subscription, avatarURL, verifyToken } =
-      await Users.create(req.body);
+    const { name, email, avatarURL, verifyToken } = await Users.create(
+      req.body,
+    );
     try {
       const emailService = new EmailService(
         process.env.NODE_ENV,
@@ -30,7 +31,7 @@ const register = async (req, res, next) => {
     return res.status(CREATED).json({
       status: 'success',
       code: CREATED,
-      user: { name, email, subscription, avatarURL, verifyToken },
+      user: { name, email, avatarURL, verifyToken },
     });
   } catch (error) {
     next(error);

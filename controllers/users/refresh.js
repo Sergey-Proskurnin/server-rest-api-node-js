@@ -1,4 +1,3 @@
-const Users = require('../../repositories/users');
 const {
   HttpCode: { OK },
   createToken,
@@ -17,19 +16,16 @@ const refresh = async (req, res, next) => {
     const newToken = createToken(id, newSession._id);
     const newRefreshToken = createRefreshToken(id, newSession._id);
 
-    const { name, email, avatarURL, token, refreshToken } =
-      await Users.updateToken(id, newToken, newRefreshToken);
-
     res.status(OK).json({
       status: 'success',
       code: OK,
       data: {
-        token: token,
-        refreshToken: refreshToken,
+        token: newToken,
+        refreshToken: newRefreshToken,
         user: {
-          name,
-          email,
-          avatarURL,
+          name: user.name,
+          email: user.email,
+          avatarURL: user.email,
         },
       },
     });

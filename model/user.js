@@ -31,14 +31,6 @@ const userSchema = new Schema(
       enum: Object.values(Packages),
       default: 'starter',
     },
-    token: {
-      type: String,
-      default: null,
-    },
-    refreshToken: {
-      type: String,
-      default: null,
-    },
     avatarURL: {
       type: String,
       default: null,

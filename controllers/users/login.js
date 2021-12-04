@@ -30,16 +30,15 @@ const login = async (req, res, next) => {
     const newSession = await Sessions.create(id);
     const token = createToken(id, newSession._id);
     const refreshToken = createRefreshToken(id, newSession._id);
-    const updateUser = await Users.updateToken(id, token, refreshToken);
     const newUser = {
-      name: updateUser.name,
-      email: updateUser.email,
-      avatarURL: updateUser.email,
+      name: user.name,
+      email: user.email,
+      avatarURL: user.email,
     };
     return res.status(OK).json({
       status: 'success',
       code: OK,
-      data: { token, refreshToken, sid: newSession._id, user: newUser },
+      data: { token, refreshToken, user: newUser },
     });
   } catch (error) {
     next(error);

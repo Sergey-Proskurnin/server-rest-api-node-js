@@ -20,9 +20,10 @@ passport.use(
       if (!session) {
         return done(new Error('Invalid session'));
       }
-      if (!user.token) {
-        return done(null, false);
-      }
+      /** If a token is stored in the user's model */
+      // if (!user.token) {
+      //   return done(null, false);
+      // }
       const dataUser = { user, session };
       return done(null, dataUser);
     } catch (error) {

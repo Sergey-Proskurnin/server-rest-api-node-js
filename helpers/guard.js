@@ -6,12 +6,6 @@ const {
 
 const guard = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (error, dataUser) => {
-    const headerAuth = req.get('Authorization');
-    let token = null;
-    if (headerAuth) {
-      token = headerAuth.split(' ')[1];
-    }
-
     if (error) {
       return res.status(UNAUTHORIZED).json({
         status: 'error',
@@ -19,7 +13,7 @@ const guard = (req, res, next) => {
         message: error.message,
       });
     }
-    if (!dataUser.user || token !== dataUser.user?.token) {
+    if (!dataUser.user) {
       return res.status(UNAUTHORIZED).json({
         status: 'error',
         code: UNAUTHORIZED,
