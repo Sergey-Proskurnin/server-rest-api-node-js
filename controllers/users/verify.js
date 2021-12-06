@@ -11,7 +11,7 @@ const verify = async (req, res, next) => {
       return res
         .status(OK)
         .send(
-          '<h1>Congratulations, your email has been successfully verified, go to the <a href="https://psg-app-phonebook.netlify.app/login">login</a> page in the phone book and enter your <a href="https://psg-app-phonebook.netlify.app">email</a> and password.</h1>',
+          '<h1>Congratulations, your email has been successfully verified, go to the <a href="https://psg-phonebook.netlify.app/login">login</a> page in the phone book and enter your <a href="https://psg-phonebook.netlify.app">email</a> and password.</h1>',
         );
     }
     return res
