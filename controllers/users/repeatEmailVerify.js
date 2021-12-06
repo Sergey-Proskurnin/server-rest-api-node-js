@@ -9,13 +9,13 @@ const repeatEmailVerify = async (req, res, next) => {
   try {
     const user = await Users.findByEmail(req.body.email);
     if (user) {
-      const { email, verify, verifyToken } = user;
+      const { name, email, verify, verifyToken } = user;
       if (!verify) {
         const emailService = new EmailService(
           process.env.NODE_ENV,
           new CreateSenderNodemailer(),
         );
-        await emailService.sendVerifyEmail(verifyToken, email);
+        await emailService.sendVerifyEmail(verifyToken, email, name);
         return res.status(OK).json({
           status: 'success',
           code: OK,

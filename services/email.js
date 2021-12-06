@@ -23,7 +23,7 @@ class EmailService {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  #createTemplateVerificationEmail(verifyToken, emailName) {
+  #createTemplateVerificationEmail(verifyToken, emailName, _name) {
     const mailGenerator = new Mailgen({
       theme: 'neopolitan',
       product: {
@@ -52,7 +52,11 @@ class EmailService {
   }
 
   async sendVerifyEmail(verifyToken, email, name) {
-    const emailHtml = this.#createTemplateVerificationEmail(verifyToken, name);
+    const emailHtml = this.#createTemplateVerificationEmail(
+      verifyToken,
+      email,
+      name,
+    );
     const msg = {
       to: email,
       subject: 'Verify your account',
