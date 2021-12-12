@@ -7,6 +7,7 @@ const subscriptionUpdate = require('./subscriptionUpdate');
 const avatars = require('./avatars');
 const verify = require('./verify');
 const repeatEmailVerify = require('./repeatEmailVerify');
+const { googleAuth, googleRedirect } = require('./authGoogle');
 
 module.exports = {
   register,
@@ -18,4 +19,6 @@ module.exports = {
   avatars,
   verify,
   repeatEmailVerify,
+  googleAuth,
+  googleRedirect,
 };

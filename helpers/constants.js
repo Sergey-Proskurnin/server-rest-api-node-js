@@ -1,3 +1,30 @@
+require('dotenv').config();
+
+let HOST;
+let FRONTEND_URL;
+
+switch (process.env.NODE_ENV) {
+  case 'development':
+    HOST = process.env.LINK_HOST_DEVELOPMENT;
+    FRONTEND_URL = process.env.LINK_HOST_DEFAULT;
+    break;
+  case 'production':
+    HOST = process.env.LINK_HOST_PRODUCTION;
+    FRONTEND_URL = process.env.FRONTEND_URL;
+    break;
+  default:
+    HOST = process.env.LINK_HOST_DEFAULT;
+    FRONTEND_URL = process.env.FRONTEND_URL_DEFAULT;
+    break;
+}
+
+const env = {
+  HOST,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  FRONTEND_URL,
+};
+
 const HttpCode = {
   OK: 200,
   CREATED: 201,
@@ -29,4 +56,4 @@ const limiterAPI = {
   },
 };
 
-module.exports = { HttpCode, Packages, limiterAPI };
+module.exports = { HttpCode, Packages, limiterAPI, env };

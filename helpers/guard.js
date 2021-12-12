@@ -20,7 +20,6 @@ const guard = (req, res, next) => {
         message: 'Unvalid token',
       });
     }
-
     req.user = dataUser.user;
     req.session = dataUser.session;
     return next();
