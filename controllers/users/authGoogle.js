@@ -65,7 +65,7 @@ const googleRedirect = async (req, res, next) => {
       const newUser = await Users.create({ email, name, password: id });
       const idUser = newUser.id;
       const newSession = await Sessions.create(idUser);
-      await Users.updateGoogleUser(idUser, picture);
+      await Users.updateAvatarUser(idUser, picture);
       const token = createToken(id, newSession._id);
       const refreshToken = createRefreshToken(id, newSession._id);
       return res.redirect(
@@ -73,9 +73,14 @@ const googleRedirect = async (req, res, next) => {
       );
     }
     const idUser = user.id;
+    await Users.updateUserName(idUser, name);
     const newSession = await Sessions.create(idUser);
-    if (user.avatarURL.includes('googleusercontent')) {
-      await Users.updateGoogleUser(idUser, picture);
+    if (
+      !user.avatarURL ||
+      user?.avatarURL.includes('googleusercontent') ||
+      user?.avatarURL.includes('scontent')
+    ) {
+      await Users.updateAvatarUser(idUser, picture);
     }
     const token = createToken(idUser, newSession._id);
     const refreshToken = createRefreshToken(idUser, newSession._id);

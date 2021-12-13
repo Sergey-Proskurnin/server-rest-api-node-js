@@ -8,6 +8,7 @@ const avatars = require('./avatars');
 const verify = require('./verify');
 const repeatEmailVerify = require('./repeatEmailVerify');
 const { googleAuth, googleRedirect } = require('./authGoogle');
+const { facebookAuth, facebookRedirect } = require('./authFacebook');
 
 module.exports = {
   register,
@@ -21,4 +22,6 @@ module.exports = {
   repeatEmailVerify,
   googleAuth,
   googleRedirect,
+  facebookAuth,
+  facebookRedirect,
 };

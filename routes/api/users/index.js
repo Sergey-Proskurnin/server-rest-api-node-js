@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const { guard, guardRefresh } = require('../../../helpers');
 const guard = require('../../../helpers/guard');
 const { upload, guardRefresh } = require('../../../helpers');
 const {
@@ -30,5 +29,7 @@ router.post('/verify', validationVerificationEmail, ctrl.repeatEmailVerify);
 router.get('/refresh', guardRefresh, ctrl.refresh);
 router.get('/google', ctrl.googleAuth);
 router.get('/google-redirect', ctrl.googleRedirect);
+router.get('/facebook', ctrl.facebookAuth);
+router.get('/facebook-redirect', ctrl.facebookRedirect);
 
 module.exports = router;

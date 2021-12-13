@@ -56,7 +56,7 @@ const updateSubscriptionUser = async (userId, body) => {
   return result;
 };
 
-const updateGoogleUser = async (userId, body) => {
+const updateAvatarUser = async (userId, body) => {
   const result = await User.findOneAndUpdate(
     { _id: userId },
     {
@@ -79,5 +79,5 @@ module.exports = {
   updateUserName,
   findByVerifyToken,
   updateTokenVerify,
-  updateGoogleUser,
+  updateAvatarUser,
 };
