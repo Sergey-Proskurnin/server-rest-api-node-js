@@ -16,7 +16,7 @@
     "image/*"
   ],
   "produces": ["application/json", "text/plain", "application/xml"],
-  "servers": [{ "url": "http://localhost:5737/api/v1" }],
+  "servers": [{ "url": "https://server-contacts-rest-api.herokuapp.com/api/v1" }],
   "tags": [
     {
       "name": "Auth",
