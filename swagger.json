@@ -16,7 +16,9 @@
     "image/*"
   ],
   "produces": ["application/json", "text/plain", "application/xml"],
-  "servers": [{ "url": "https://server-contacts-rest-api.herokuapp.com/api/v1" }],
+  "servers": [
+    { "url": "https://server-contacts-rest-api.herokuapp.com/api/v1" }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -406,7 +408,7 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "User's subscription",
+          "description": "Available subscriptions for User: 'starter', 'pro' and 'business'",
           "required": true,
           "content": {
             "application/json": {
@@ -433,6 +435,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SubscriptionErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/": {
+      "get": {
+        "tags": ["Contacts"],
+        "summary": "User's all contacts",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllContactsResponse"
                 }
               }
             }
@@ -931,6 +964,142 @@
             "type": "string",
             "description": "Not found",
             "example": "Not found"
+          }
+        }
+      },
+      "AllContactsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success",
+            "example": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "description": "User's contacts",
+            "properties": {
+              "contacts": {
+                "type": "array",
+                "description": "User's contacts",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "favorite": {
+                      "type": "boolean",
+                      "description": "Favorite contacts",
+                      "example": true
+                    },
+                    "idCloudAvatarContact": {
+                      "type": "string",
+                      "description": "Id cloud avatar contact",
+                      "example": "CloudAvatarsContacts/u1ytfbat501ksvbfsxds"
+                    },
+                    "avatarContactURL": {
+                      "type": "string",
+                      "description": "Url contact avatar",
+                      "example": "https://res.cloudinary.com"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name contact",
+                      "example": "Alexander Repeta"
+                    },
+                    "number": {
+                      "type": "string",
+                      "description": "Number contact",
+                      "example": "777-77-77"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email contact",
+                      "example": "alexander.repeta@gmail.com"
+                    },
+                    "owner": {
+                      "type": "object",
+                      "description": "Owner contact",
+                      "properties": {
+                        "subscription": {
+                          "type": "string",
+                          "description": "Owner's subscription",
+                          "example": "starter"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Owner's email",
+                          "example": "user@example.com"
+                        }
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "description": "Time created contact",
+                      "example": "2021-11-19T20:06:12.928Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "description": "Time updated contact",
+                      "example": "2021-11-19T20:08:12.928Z"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "Id contact",
+                      "example": "619803b4bea2ab001dc01696"
+                    }
+                  }
+                }
+              },
+              "totalDocs": {
+                "type": "number",
+                "description": "Total contacts",
+                "example": 2
+              },
+              "limit": {
+                "type": "number",
+                "description": "Limit contacts on page",
+                "example": 100
+              },
+              "totalPages": {
+                "type": "number",
+                "description": "Total contact pages",
+                "example": 1
+              },
+              "page": {
+                "type": "number",
+                "description": "Page contacts",
+                "example": 1
+              },
+              "pagingCounter": {
+                "type": "number",
+                "description": "Paging counter",
+                "example": 1
+              },
+              "hasPrevPage": {
+                "type": "boolean",
+                "description": "Нas prev page",
+                "example": false
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "description": "Нas next page",
+                "example": false
+              },
+              "prevPage": {
+                "type": "number",
+                "description": "Prev page",
+                "example": null
+              },
+              "nextPage": {
+                "type": "number",
+                "description": "Next page",
+                "example": null
+              }
+            }
           }
         }
       }
