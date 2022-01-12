@@ -2,7 +2,7 @@ require('dotenv').config();
 const Contacts = require('../../repositories/contacts');
 
 const {
-  HttpCode: { CREATED, OK },
+  HttpCode: { CREATED},
 } = require('../../helpers');
 
 const addContacts = async (req, res, next) => {
@@ -10,7 +10,7 @@ const addContacts = async (req, res, next) => {
     const userId = req.user._id;
     if (req.file === undefined) {
       const contact = await Contacts.addContact(userId, req.body);
-      res.status(OK).json({
+      res.status(CREATED).json({
         status: 'success',
         code: CREATED,
         data: { contact },
@@ -22,7 +22,7 @@ const addContacts = async (req, res, next) => {
       req.body,
       req.file.path,
     );
-    res.status(OK).json({
+    res.status(CREATED).json({
       status: 'success',
       code: CREATED,
       data: { contact },

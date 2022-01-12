@@ -166,7 +166,6 @@
         "summary": "User logout",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {},
         "responses": {
           "204": {
             "description": "success",
@@ -197,7 +196,7 @@
             "name": "verificationToken",
             "required": true,
             "type": "string",
-            "description": "Users's verify token"
+            "description": "User's verify token"
           }
         ],
         "responses": {
@@ -299,7 +298,6 @@
         "tags": ["Auth"],
         "summary": "Google authentication. WARNING: Works only for sign-in, after registered on front-end (if you're writing your back-end for a SPECIFIC front-end, then you can configure it right to work both for sign-up & sign-in)",
         "parameters": [],
-        "requestBody": {},
         "responses": {
           "200": {
             "description": "Successful operation (redirect to front-end with accessToken, refreshToken and sid in query). Then use GET /user",
@@ -317,7 +315,6 @@
         "tags": ["Auth"],
         "summary": "Facebook authentication. WARNING: Works only for sign-in, after registered on front-end (if you're writing your back-end for a SPECIFIC front-end, then you can configure it right to work both for sign-up & sign-in)",
         "parameters": [],
-        "requestBody": {},
         "responses": {
           "200": {
             "description": "Successful operation (redirect to front-end with accessToken, refreshToken and sid in query). Then use GET /user",
@@ -456,7 +453,94 @@
       "get": {
         "tags": ["Contacts"],
         "summary": "User's all contacts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "favorite",
+            "required": false,
+            "type": "boolean",
+            "description": "Favorite user contacts"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllContactsResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "post": {
+        "tags": ["Contacts"],
+        "summary": "Create contact",
         "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Contact's information",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AddContactRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddContactResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}": {
+      "get": {
+        "tags": ["Contacts"],
+        "summary": "Get user contact by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactId",
+            "required": true,
+            "type": "string",
+            "description": "User's contact id"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "requestBody": {},
         "responses": {
@@ -465,7 +549,183 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AllContactsResponse"
+                  "$ref": "#/components/schemas/ContactIdResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactIdDel}": {
+      "delete": {
+        "tags": ["Contacts"],
+        "summary": "Delete user contact by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactIdDel",
+            "required": true,
+            "type": "string",
+            "description": "User's contact id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactIdDeleteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactIdUpdate}": {
+      "put": {
+        "tags": ["Contacts"],
+        "summary": "Update user contact by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactIdUpdate",
+            "required": true,
+            "type": "string",
+            "description": "User's contact id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Contact's information",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AddContactRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactIdResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/favorite": {
+      "patch": {
+        "tags": ["Contacts"],
+        "summary": "Update status contact by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactId",
+            "required": true,
+            "type": "string",
+            "description": "User's contact id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Favorite contact",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFavoriteContactRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactIdResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponse"
                 }
               }
             }
@@ -1100,6 +1360,294 @@
                 "example": null
               }
             }
+          }
+        }
+      },
+      "ContactIdResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success",
+            "example": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "Ok",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+
+            "properties": {
+              "favorite": {
+                "type": "boolean",
+                "description": "Favorite contacts",
+                "example": true
+              },
+              "idCloudAvatarContact": {
+                "type": "string",
+                "description": "Id cloud avatar contact",
+                "example": "CloudAvatarsContacts/u1ytfbat501ksvbfsxds"
+              },
+              "avatarContactURL": {
+                "type": "string",
+                "description": "Url contact avatar",
+                "example": "https://res.cloudinary.com"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name contact",
+                "example": "Alexander Repeta"
+              },
+              "number": {
+                "type": "string",
+                "description": "Number contact",
+                "example": "777-77-77"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email contact",
+                "example": "alexander.repeta@gmail.com"
+              },
+              "owner": {
+                "type": "object",
+                "description": "Owner contact",
+                "properties": {
+                  "subscription": {
+                    "type": "string",
+                    "description": "Owner's subscription",
+                    "example": "starter"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Owner's email",
+                    "example": "user@example.com"
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Time created contact",
+                "example": "2021-11-19T20:06:12.928Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Time updated contact",
+                "example": "2021-11-19T20:08:12.928Z"
+              },
+              "id": {
+                "type": "string",
+                "description": "Id contact",
+                "example": "619803b4bea2ab001dc01696"
+              }
+            }
+          }
+        }
+      },
+      "ContactIdDeleteResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success",
+            "example": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "description": "Contact deleted",
+            "example": "Contact deleted"
+          },
+          "data": {
+            "type": "object",
+
+            "properties": {
+              "favorite": {
+                "type": "boolean",
+                "description": "Favorite contacts",
+                "example": true
+              },
+              "idCloudAvatarContact": {
+                "type": "string",
+                "description": "Id cloud avatar contact",
+                "example": "CloudAvatarsContacts/u1ytfbat501ksvbfsxds"
+              },
+              "avatarContactURL": {
+                "type": "string",
+                "description": "Url contact avatar",
+                "example": "https://res.cloudinary.com"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name contact",
+                "example": "Alexander Repeta"
+              },
+              "number": {
+                "type": "string",
+                "description": "Number contact",
+                "example": "777-77-77"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email contact",
+                "example": "alexander.repeta@gmail.com"
+              },
+              "owner": {
+                "type": "object",
+                "description": "Owner contact",
+                "properties": {
+                  "subscription": {
+                    "type": "string",
+                    "description": "Owner's subscription",
+                    "example": "starter"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Owner's email",
+                    "example": "user@example.com"
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Time created contact",
+                "example": "2021-11-19T20:06:12.928Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Time updated contact",
+                "example": "2021-11-19T20:08:12.928Z"
+              },
+              "id": {
+                "type": "string",
+                "description": "Id contact",
+                "example": "619803b4bea2ab001dc01696"
+              }
+            }
+          }
+        }
+      },
+      "AddContactRequest": {
+        "type": "object",
+        "required": ["name", "email", "number"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Contact's name (min 3 and max 30 characters)",
+            "example": "Alexandr Venik"
+          },
+          "email": {
+            "type": "string",
+            "description": "Contact's email",
+            "format": "email",
+            "example": "alexandrvenik@gmail.com"
+          },
+          "number": {
+            "type": "string",
+            "description": "Contact's number (min 3 and max 30 digits)",
+            "example": "999-99-99"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "binary",
+            "description": "Image avatar (format only 'jpg' and 'png')"
+          }
+        }
+      },
+      "AddContactResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success",
+            "example": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "Created",
+            "example": "201"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "favorite": {
+                "type": "boolean",
+                "description": "Favorite contacts",
+                "example": true
+              },
+              "idCloudAvatarContact": {
+                "type": "string",
+                "description": "Id cloud avatar contact",
+                "example": "CloudAvatarsContacts/u1ytfbat501ksvbfsxds"
+              },
+              "avatarContactURL": {
+                "type": "string",
+                "description": "Url contact avatar",
+                "example": "https://res.cloudinary.com"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name contact",
+                "example": "Alexandr Venik"
+              },
+              "number": {
+                "type": "string",
+                "description": "Number contact",
+                "example": "999-99-99"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email contact",
+                "example": "alexandrvenik@gmail.com"
+              },
+              "owner": {
+                "type": "object",
+                "description": "Owner contact",
+                "properties": {
+                  "subscription": {
+                    "type": "string",
+                    "description": "Owner's subscription",
+                    "example": "starter"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Owner's email",
+                    "example": "user@example.com"
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Time created contact",
+                "example": "2021-11-19T21:06:12.928Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Time updated contact",
+                "example": "2021-11-19T21:08:12.928Z"
+              },
+              "id": {
+                "type": "string",
+                "description": "Id contact",
+                "example": "619803b4cea2aa001dc02897"
+              }
+            }
+          }
+        }
+      },
+      "UpdateFavoriteContactRequest": {
+        "type": "object",
+        "required": ["favorite"],
+        "properties": {
+          "favorite": {
+            "type": "boolean",
+            "description": "Contact's status",
+            "example": true
           }
         }
       }
