@@ -117,12 +117,22 @@
               }
             }
           },
-          "409": {
+          "401 ": {
             "description": "User has not verified his email",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LoginErrorVerifiedResponse"
+                }
+              }
+            }
+          },
+          "500 ": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -143,6 +153,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
@@ -171,6 +191,16 @@
             "description": "success",
             "content": {
               "application/json": {}
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
             }
           },
           "500": {
@@ -355,6 +385,16 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Fail",
             "content": {
@@ -381,6 +421,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/RefreshResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
@@ -422,6 +472,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SubscriptionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
@@ -474,6 +534,16 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Fail",
             "content": {
@@ -515,6 +585,16 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Fail",
             "content": {
@@ -550,6 +630,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ContactIdResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
@@ -598,6 +688,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ContactIdDeleteResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
@@ -661,6 +761,16 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found",
             "content": {
@@ -720,6 +830,16 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found",
             "content": {
@@ -772,11 +892,13 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "success"
+            "description": "success",
+            "example": "success"
           },
           "code": {
             "type": "string",
-            "description": "201"
+            "description": "201",
+            "example": "201"
           },
           "user": {
             "type": "object",
@@ -784,7 +906,8 @@
             "properties": {
               "name": {
                 "type": "string",
-                "description": "User's name"
+                "description": "User's name",
+                "example": "User"
               },
               "email": {
                 "type": "string",
@@ -793,11 +916,13 @@
               },
               "avatarURL": {
                 "type": "string",
-                "description": "User's avatar"
+                "description": "User's avatar",
+                "example": null
               },
               "verifyToken": {
                 "type": "string",
-                "description": "User's verify token"
+                "description": "User's verify token",
+                "example": "882be0aa-c089-4c38-a7a5-38e06b8f4a89"
               }
             }
           }
@@ -808,15 +933,18 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "error"
+            "description": "error",
+            "example": "error"
           },
           "code": {
             "type": "string",
-            "description": "409"
+            "description": "409",
+            "example": "409"
           },
           "message": {
             "type": "string",
-            "description": "Email in use"
+            "description": "Email in use",
+            "example": "Email in use"
           }
         }
       },
@@ -841,22 +969,26 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "success"
+            "description": "success",
+            "example": "success"
           },
           "code": {
             "type": "string",
-            "description": "200"
+            "description": "200",
+            "example": "200"
           },
           "data": {
             "type": "object",
             "properties": {
               "token": {
                 "type": "string",
-                "description": "User's token"
+                "description": "User's token",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiTWFtYSdzIGhhY2tlciI6IldlbGwsIHdoeSBkaWQgeW91IGNsaW1iIGhlcmUiLCJpYXQiOjE1MTYyMzkwMjJ9.GV-Etxg3MNXNP-omtkJGGjvnCTBERkC_x1G9G8QsGUY"
               },
               "refreshToken": {
                 "type": "string",
-                "description": "User's token"
+                "description": "User's refresh token",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiTWFtYSdzIGhhY2tlciI6IldlbGwsIHdoeSBkaWQgeW91IGNsaW1iIGhlcmUiLCJyaWF0IjoxNTE2MjM5MDIyfQ.bk5Q7DREsi7uotZfQtsLFIY_v9ePQ8nyTXf-SvJlQ-A"
               },
               "user": {
                 "type": "object",
@@ -864,7 +996,8 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "User's name"
+                    "description": "User's name",
+                    "example": "User"
                   },
                   "email": {
                     "type": "string",
@@ -873,7 +1006,8 @@
                   },
                   "avatarURL": {
                     "type": "string",
-                    "description": "User's avatar"
+                    "description": "User's avatar",
+                    "example": null
                   }
                 }
               }
@@ -886,15 +1020,18 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "error"
+            "description": "error",
+            "example": "error"
           },
           "code": {
             "type": "string",
-            "description": "401"
+            "description": "401",
+            "example": "401"
           },
           "message": {
             "type": "string",
-            "description": "Email or password is wrong"
+            "description": "Email or password is wrong",
+            "example": "Email or password is wrong"
           }
         }
       },
@@ -903,15 +1040,18 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "error"
+            "description": "error",
+            "example": "error"
           },
           "code": {
             "type": "string",
-            "description": "401"
+            "description": "401",
+            "example": "401"
           },
           "message": {
             "type": "string",
-            "description": "User has not verified his email"
+            "description": "User has not verified his email",
+            "example": "User has not verified his email"
           }
         }
       },
@@ -1648,6 +1788,26 @@
             "type": "boolean",
             "description": "Contact's status",
             "example": true
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "error",
+            "example": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "401",
+            "example": "401"
+          },
+          "message": {
+            "type": "string",
+            "description": "Unvalid token",
+            "example": "Unvalid token"
           }
         }
       }
