@@ -897,7 +897,7 @@
           },
           "code": {
             "type": "string",
-            "description": "201",
+            "description": "Created",
             "example": "201"
           },
           "user": {
@@ -938,7 +938,7 @@
           },
           "code": {
             "type": "string",
-            "description": "409",
+            "description": "Conflict",
             "example": "409"
           },
           "message": {
@@ -974,7 +974,7 @@
           },
           "code": {
             "type": "string",
-            "description": "200",
+            "description": "Ok",
             "example": "200"
           },
           "data": {
@@ -1025,7 +1025,7 @@
           },
           "code": {
             "type": "string",
-            "description": "401",
+            "description": "Unauthorized",
             "example": "401"
           },
           "message": {
@@ -1045,7 +1045,7 @@
           },
           "code": {
             "type": "string",
-            "description": "401",
+            "description": "Unauthorized",
             "example": "401"
           },
           "message": {
@@ -1060,11 +1060,13 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "success"
+            "description": "success",
+            "example": "success"
           },
           "code": {
             "type": "string",
-            "description": "200"
+            "description": "Ok",
+            "example": "200"
           },
           "user": {
             "type": "object",
@@ -1072,7 +1074,8 @@
             "properties": {
               "name": {
                 "type": "string",
-                "description": "User's name"
+                "description": "User's name",
+                "example": "User"
               },
               "email": {
                 "type": "string",
@@ -1081,7 +1084,8 @@
               },
               "avatarURL": {
                 "type": "string",
-                "description": "User's avatar"
+                "description": "User's avatar",
+                "example": "https://res.cloudinary.com"
               }
             }
           }
@@ -1117,7 +1121,7 @@
           },
           "code": {
             "type": "string",
-            "description": "404",
+            "description": "Not found",
             "example": "404"
           },
           "message": {
@@ -1147,7 +1151,7 @@
           },
           "code": {
             "type": "string",
-            "description": "404",
+            "description": "Not found",
             "example": "404"
           },
           "message": {
@@ -1172,11 +1176,13 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "success"
+            "description": "success",
+            "example": "success"
           },
           "code": {
             "type": "string",
-            "description": "200"
+            "description": "Ok",
+            "example": "200"
           },
           "data": {
             "type": "object",
@@ -1200,7 +1206,7 @@
           },
           "code": {
             "type": "string",
-            "description": "409",
+            "description": "Conflict",
             "example": "409"
           },
           "message": {
@@ -1231,11 +1237,13 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "success"
+            "description": "success",
+            "example": "success"
           },
           "code": {
             "type": "string",
-            "description": "200"
+            "description": "Ok",
+            "example": "200"
           },
           "data": {
             "type": "object",
@@ -1246,7 +1254,8 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "User's name"
+                    "description": "User's name",
+                    "example": "User"
                   },
                   "email": {
                     "type": "string",
@@ -1255,7 +1264,8 @@
                   },
                   "avatarURL": {
                     "type": "string",
-                    "description": "User's avatar"
+                    "description": "User's avatar",
+                    "example": "https://res.cloudinary.com"
                   }
                 }
               }
@@ -1268,11 +1278,13 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "success"
+            "description": "success",
+            "example": "success"
           },
           "code": {
             "type": "string",
-            "description": "200"
+            "description": "Ok",
+            "example": "200"
           },
           "data": {
             "type": "object",
@@ -1280,11 +1292,13 @@
             "properties": {
               "token": {
                 "type": "string",
-                "description": "User's token"
+                "description": "User's token",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiTWFtYSdzIGhhY2tlciI6IldlbGwsIHdoeSBkaWQgeW91IGNsaW1iIGhlcmUiLCJpYXQiOjE1MTYyMzkwMjJ9.GV-Etxg3MNXNP-omtkJGGjvnCTBERkC_x1G9G8QsGUY"
               },
               "refreshToken": {
                 "type": "string",
-                "description": "User's refresh token"
+                "description": "User's refresh token",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiTWFtYSdzIGhhY2tlciI6IldlbGwsIHdoeSBkaWQgeW91IGNsaW1iIGhlcmUiLCJyaWF0IjoxNTE2MjM5MDIyfQ.bk5Q7DREsi7uotZfQtsLFIY_v9ePQ8nyTXf-SvJlQ-A"
               },
               "user": {
                 "type": "object",
@@ -1292,7 +1306,8 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "User's name"
+                    "description": "User's name",
+                    "example": "User"
                   },
                   "email": {
                     "type": "string",
@@ -1301,7 +1316,8 @@
                   },
                   "avatarURL": {
                     "type": "string",
-                    "description": "User's avatar"
+                    "description": "User's avatar",
+                    "example": "https://res.cloudinary.com"
                   }
                 }
               }
@@ -1325,11 +1341,13 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "success"
+            "description": "success",
+            "example": "success"
           },
           "code": {
             "type": "string",
-            "description": "200"
+            "description": "Ok",
+            "example": "200"
           },
           "data": {
             "type": "object",
@@ -1337,11 +1355,13 @@
             "properties": {
               "email": {
                 "type": "string",
-                "description": "User's email"
+                "description": "User's email",
+                "format": "email"
               },
               "subscription": {
                 "type": "string",
-                "description": "User's subscription"
+                "description": "User's subscription",
+                "example": "business"
               }
             }
           }
@@ -1357,7 +1377,7 @@
           },
           "code": {
             "type": "string",
-            "description": "404",
+            "description": "Not found",
             "example": "404"
           },
           "message": {
@@ -1377,7 +1397,7 @@
           },
           "code": {
             "type": "string",
-            "description": "200",
+            "description": "Ok",
             "example": "200"
           },
           "data": {
@@ -1418,6 +1438,7 @@
                     "email": {
                       "type": "string",
                       "description": "Email contact",
+                      "format": "email",
                       "example": "alexander.repeta@gmail.com"
                     },
                     "owner": {
@@ -1432,6 +1453,7 @@
                         "email": {
                           "type": "string",
                           "description": "Owner's email",
+                          "format": "email",
                           "example": "user@example.com"
                         }
                       }
@@ -1518,7 +1540,6 @@
           },
           "data": {
             "type": "object",
-
             "properties": {
               "favorite": {
                 "type": "boolean",
@@ -1548,6 +1569,7 @@
               "email": {
                 "type": "string",
                 "description": "Email contact",
+                "format": "email",
                 "example": "alexander.repeta@gmail.com"
               },
               "owner": {
@@ -1562,6 +1584,7 @@
                   "email": {
                     "type": "string",
                     "description": "Owner's email",
+                    "format": "email",
                     "example": "user@example.com"
                   }
                 }
@@ -1595,7 +1618,7 @@
           },
           "code": {
             "type": "string",
-            "description": "200",
+            "description": "Ok",
             "example": "200"
           },
           "message": {
@@ -1605,7 +1628,6 @@
           },
           "data": {
             "type": "object",
-
             "properties": {
               "favorite": {
                 "type": "boolean",
@@ -1635,6 +1657,7 @@
               "email": {
                 "type": "string",
                 "description": "Email contact",
+                "format": "email",
                 "example": "alexander.repeta@gmail.com"
               },
               "owner": {
@@ -1649,6 +1672,7 @@
                   "email": {
                     "type": "string",
                     "description": "Owner's email",
+                    "format": "email",
                     "example": "user@example.com"
                   }
                 }
@@ -1743,6 +1767,7 @@
               "email": {
                 "type": "string",
                 "description": "Email contact",
+                "format": "email",
                 "example": "alexandrvenik@gmail.com"
               },
               "owner": {
@@ -1757,6 +1782,7 @@
                   "email": {
                     "type": "string",
                     "description": "Owner's email",
+                    "format": "email",
                     "example": "user@example.com"
                   }
                 }
@@ -1801,7 +1827,7 @@
           },
           "code": {
             "type": "string",
-            "description": "401",
+            "description": "Unauthorized",
             "example": "401"
           },
           "message": {
