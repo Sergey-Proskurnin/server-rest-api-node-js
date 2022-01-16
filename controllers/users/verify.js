@@ -1,4 +1,5 @@
 const Users = require('../../repositories/users');
+const path = require('path');
 const {
   HttpCode: { OK, NOT_FOUND },
 } = require('../../helpers');
@@ -10,8 +11,11 @@ const verify = async (req, res, next) => {
       await Users.updateTokenVerify(user.id, true, null);
       return res
         .status(OK)
-        .send(
-          '<h1>Congratulations, your email has been successfully verified, go to the <a href="https://psg-phonebook.netlify.app/login">login</a> page in the phone book and enter your <a href="https://psg-phonebook.netlify.app">email</a> and password.</h1>',
+        .sendFile(
+          path.join(
+            __dirname,
+            '../../public/successful-verification-page.html',
+          ),
         );
     }
     return res

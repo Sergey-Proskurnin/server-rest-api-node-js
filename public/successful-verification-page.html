@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <style>
+      html {
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        background: linear-gradient(
+            rgba(150, 154, 187, 0.9),
+            rgba(47, 48, 58, 0.4)
+          ),
+          url('/img/sunset-london-england.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .HomeContainer {
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        min-height: calc(100vh - 50px);
+      }
+      .HomeTitle {
+        font-family: monospace;
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 50px;
+        text-align: center;
+      }
+      .HomeArticle {
+        max-width: 400px;
+        margin-top: 30px;
+        margin-left: 50%;
+        margin-right: 10px;
+        text-indent: 5%;
+        font-style: italic;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        padding-bottom: 10px;
+      }
+      .HomeArticleDescription {
+        font-size: 20px;
+        text-align: justify;
+      }
+      .linkMessage {
+        color: #3f51b5;
+        text-decoration: none;
+      }
+      .linkMessage:hover,
+      .linkMessag:focus {
+        color: #e84a5f;
+      }
+
+      @media screen and (min-width: 768px) {
+        .HomeTitle {
+          font-size: 100px;
+          font-weight: 500;
+        }
+
+        .HomeArticle {
+          margin-top: 50px;
+        }
+        .HomeArticleDescription {
+          font-size: 32px;
+        }
+      }
+    </style>
+
+    <div class="HomeContainer">
+      <h1 class="HomeTitle">Phonebook</h1>
+
+      <article class="HomeArticle">
+        <p class="HomeArticleDescription">
+          Congratulations, your email has been successfully verified, go to the
+          <a class="linkMessage" href="https://psg-phonebook.netlify.app/login"
+            >login</a
+          >
+          page in the phone book and enter your email and password.
+        </p>
+      </article>
+    </div>
+  </body>
+</html>
