@@ -33,7 +33,7 @@ const login = async (req, res, next) => {
     const newUser = {
       name: user.name,
       email: user.email,
-      avatarURL: user.email,
+      avatarURL: user.avatarURL,
     };
     return res.status(OK).json({
       status: 'success',
