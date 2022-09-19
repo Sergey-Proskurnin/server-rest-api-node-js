@@ -22,6 +22,7 @@ const avatars = async (req, res, next) => {
             name: updatedUser.name,
             email: updatedUser.email,
             avatarURL: updatedUser.avatarURL,
+            subscription: updatedUser.subscription
           },
         },
       });
@@ -50,6 +51,7 @@ const avatars = async (req, res, next) => {
           name: updatedUser.name,
           email: updatedUser.email,
           avatarURL: updatedUser.avatarURL,
+          subscription: updatedUser.subscription
         },
       },
     });
