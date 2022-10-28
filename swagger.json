@@ -3,7 +3,7 @@
   "info": {
     "version": "2.0.2",
     "title": "server-contacts-rest-api",
-    "description": "Showing off server-contacts-rest-api",
+    "description": "API documentation for project 'Phonebook'. [Backend github repository](https://github.com/Sergey-Proskurnin/server-rest-api-node-js) | [Privacy Policy](https://server-contacts-rest-api.herokuapp.com/api/v1/privacy-policy)",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
